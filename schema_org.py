@@ -24,7 +24,7 @@ class Thing(object):
 
 class Action(Thing):
     def __init__(self, **kwargs):
-        super().__init__()
+        Thing.__init__(self, **kwargs)
         self.canonicalAttributes = ('actionStatus', 'agent', 'endTime', 'error',
             'instrument', 'location', 'object', 'participant', 'result',
             'startTime', 'target')
@@ -33,9 +33,10 @@ class Action(Thing):
         for attribute in self.canonicalAttributes:
             setattr(self, attribute, kwargs.get(attribute, None))
 
+
 class Person(Thing):
     def __init__(self, **kwargs):
-        super().__init__()
+        Thing.__init__(self, **kwargs)
         self.canonicalAttributes = ('additionalName', 'address', 'affiliation',
             'alumniOf', 'award', 'birthDate', 'birthPlace', 'brand', 'children',
             'colleague', 'contactPoint', 'deathDate', 'duns', 'email',
@@ -48,6 +49,16 @@ class Person(Thing):
             'spouse', 'taxID', 'telephone', 'vatID', 'weight', 'workLocation',
             'worksFor')
         self.itemType = "Person"
+        self.definitionLastUpdated = datetime.date(2017, 12, 1)
+        for attribute in self.canonicalAttributes:
+            setattr(self, attribute, kwargs.get(attribute, None))
+
+
+class Intangible(Thing):
+    def __init__(self, **kwargs):
+        Thing.__init__(self, **kwargs)
+        self.canonicalAttributes = ()
+        self.itemType = "Intangible"
         self.definitionLastUpdated = datetime.date(2017, 12, 1)
         for attribute in self.canonicalAttributes:
             setattr(self, attribute, kwargs.get(attribute, None))
