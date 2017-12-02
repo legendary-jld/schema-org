@@ -1,13 +1,24 @@
 import datetime
 
+# Local Libraries
+import definitions
+
+
 class Thing(object):
     def __init__(self, **kwargs):
-        self.canonicalAttributes = ('additionalType', 'alternateName', 'description',
-            'disambugatingDescription', 'identifier', 'image', 'mainEntityOfPage',
-            'name', 'potentialAction', 'sameAs', 'subjectOf', 'url')
-        self.itemType = "Thing"
-        self.definitionLastUpdated = datetime.date(2017, 12, 1)
-        for attribute in self.canonicalAttributes:
+        self.itemStructure = None
+        self.parentStructure = None
+        self.schema = definitions.Thing()
+        self.setAttributes()
+
+    def setAttributes(self, parent=None, **kwargs):
+        if parent:
+            self.itemStructure = "{0} > {1}".format(parent.schema.itemType, self.schema.itemType)
+            self.parentStructure = parent.schema.itemType
+        else:
+            self.itemStructure = self.schema.itemType
+
+        for attribute in self.schema.canonicalAttributes:
             setattr(self, attribute, kwargs.get(attribute, None))
 
     def validate(self):
@@ -21,44 +32,35 @@ class Thing(object):
         if self.validate(): # Must validate first
             pass
 
+    def __repr__(self):
+        return "<SCHEMA:{0} - ID: {1} | Name: {2}>".format(
+            self.itemStructure, self.identifier, self.name
+            )
+
 
 class Action(Thing):
     def __init__(self, **kwargs):
         Thing.__init__(self, **kwargs)
-        self.canonicalAttributes = ('actionStatus', 'agent', 'endTime', 'error',
-            'instrument', 'location', 'object', 'participant', 'result',
-            'startTime', 'target')
-        self.itemType = "Action"
-        self.definitionLastUpdated = datetime.date(2017, 12, 1)
-        for attribute in self.canonicalAttributes:
-            setattr(self, attribute, kwargs.get(attribute, None))
+        self.schema = definitions.Action()
+        self.setAttributes(parent=Thing(), **kwargs) # Would prefer not to create a Thing Instance just to get the itemType
+
+
+class CreativeWork(Thing):
+    def __init__(self, **kwargs):
+        Thing.__init__(self, **kwargs)
+        self.schema = definitions.CreativeWork()
+        self.setAttributes(parent=Thing, **kwargs)
 
 
 class Person(Thing):
     def __init__(self, **kwargs):
         Thing.__init__(self, **kwargs)
-        self.canonicalAttributes = ('additionalName', 'address', 'affiliation',
-            'alumniOf', 'award', 'birthDate', 'birthPlace', 'brand', 'children',
-            'colleague', 'contactPoint', 'deathDate', 'duns', 'email',
-            'familyName', 'faxNumber', 'follows', 'funder', 'gender', 'givenName',
-            'globalLocation', 'hasOccupation', 'hasOfferCatalog', 'hasPOS',
-            'height', 'homeLocation', 'honorificPrefix', 'honorificSuffix',
-            'isicV4', 'jobTitle', 'knows', 'makesOffer', 'memberOf', 'naics',
-            'nationality', 'netWorth', 'owns', 'parent', 'performerIn',
-            'publishingPrinciples', 'relatedTo', 'seeks', 'sibling', 'sponsor',
-            'spouse', 'taxID', 'telephone', 'vatID', 'weight', 'workLocation',
-            'worksFor')
-        self.itemType = "Person"
-        self.definitionLastUpdated = datetime.date(2017, 12, 1)
-        for attribute in self.canonicalAttributes:
-            setattr(self, attribute, kwargs.get(attribute, None))
+        self.schema = definitions.Person()
+        self.setAttributes(parent=Thing, **kwargs)
 
 
 class Intangible(Thing):
     def __init__(self, **kwargs):
         Thing.__init__(self, **kwargs)
-        self.canonicalAttributes = ()
-        self.itemType = "Intangible"
-        self.definitionLastUpdated = datetime.date(2017, 12, 1)
-        for attribute in self.canonicalAttributes:
-            setattr(self, attribute, kwargs.get(attribute, None))
+        self.schema = definitions.Intangible()
+        self.setAttributes(parent=Thing, **kwargs)
