@@ -52,10 +52,10 @@ class CreativeWork(Thing):
         self.setAttributes(parent=Thing, **kwargs)
 
 
-class Person(Thing):
+class Event(Thing):
     def __init__(self, **kwargs):
         Thing.__init__(self, **kwargs)
-        self.schema = definitions.Person()
+        self.schema = definitions.Event()
         self.setAttributes(parent=Thing, **kwargs)
 
 
@@ -63,4 +63,18 @@ class Intangible(Thing):
     def __init__(self, **kwargs):
         Thing.__init__(self, **kwargs)
         self.schema = definitions.Intangible()
+        self.setAttributes(parent=Thing, **kwargs)
+
+
+class Organization(Thing):
+    def __init__(self, **kwargs):
+        Thing.__init__(self, **kwargs)
+        self.schema = definitions.Organization()
+        self.setAttributes(parent=Thing, **kwargs)
+
+
+class Person(Thing):
+    def __init__(self, **kwargs):
+        Thing.__init__(self, **kwargs)
+        self.schema = definitions.Person()
         self.setAttributes(parent=Thing, **kwargs)

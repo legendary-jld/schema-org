@@ -58,6 +58,48 @@ def CreativeWork():
         )
 
 
+def Event():
+    return SchemaDefinition(
+        itemType="Event",
+        itemTypeUrl="http://schema.org/Event",
+        canonicalAttributes=('about', 'actor', 'aggregateRating', 'attendee',
+        'audience', 'composer', 'contributor', 'director', 'doorTime', 'duration',
+        'endDate', 'eventStatus', 'funder', 'inLanguage', 'isAccessibleForFree',
+        'location', 'maximumAttendeeCapacity', 'offers', 'organizer', 'perfomer',
+        'previousStartDate', 'recordedIn', 'remainingAttendeeCapacity', 'review',
+        'sponsor', 'startDate', 'subEvent', 'superEvent', 'translator',
+        'typicalAgeRange', 'workFeatured', 'workPerformed'),
+        lastUpdated=datetime.date(2017, 12, 1)
+        )
+
+
+def Intangible():
+    return SchemaDefinition(
+        itemType="Intangible",
+        itemTypeUrl="http://schema.org/Intangible",
+        canonicalAttributes=(),
+        lastUpdated=datetime.date(2017, 12, 1)
+        )
+
+
+def Organization():
+    return SchemaDefinition(
+        itemType="Organization",
+        itemTypeUrl="http://schema.org/Organization",
+        canonicalAttributes=('actionableFeedbackPolicy', 'address',
+        'aggregateRating', 'alumni', 'areaServed', 'award', 'brand', 'contactPoint',
+        'correctionsPolicy', 'department', 'dissolutionDate', 'diversityPolicy',
+        'duns', 'email', 'employee', 'ethicsPolicy', 'event', 'faxNumber',
+        'founder', 'foundingDate', 'foundingLocation', 'funder',
+        'globalLocationNumber', 'hasOfferCatalog', 'hasPOS', 'isicV4', 'legalName',
+        'leiCode', 'location', 'logo', 'makesOffer', 'member', 'memberOf', 'naics',
+        'numberOfEmployees', 'owns', 'parentOrganization', 'publishingPrinciples',
+        'review', 'seeks', 'sponsor', 'subOrganization', 'taxID', 'telephone',
+        'unnamedSourcesPolicy', 'vatID'),
+        lastUpdated=datetime.date(2017, 12, 1)
+        )
+
+
 def Person():
     return SchemaDefinition(
         itemType="Person",
@@ -73,13 +115,5 @@ def Person():
             'publishingPrinciples', 'relatedTo', 'seeks', 'sibling', 'sponsor',
             'spouse', 'taxID', 'telephone', 'vatID', 'weight', 'workLocation',
             'worksFor'),
-        lastUpdated=datetime.date(2017, 12, 1)
-        )
-
-def Intangible():
-    return SchemaDefinition(
-        itemType="Intangible",
-        itemTypeUrl="http://schema.org/Intangible",
-        canonicalAttributes=(),
         lastUpdated=datetime.date(2017, 12, 1)
         )
